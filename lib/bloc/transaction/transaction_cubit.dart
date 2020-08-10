@@ -21,22 +21,49 @@ class TransactionCubit extends Cubit<TransactionState>{
       icon: Icons.laptop_windows,
       ),
       Transaction(
-      name: "Buy Food nga Lamian",
+      name: "Kita sa pamayot didto ila Joel dapit.",
       description: "This is the description",
-      date: '8/10/2020',
+      date: '8/13/2020',
       amount: 3200.00,
-      category:  'Gadgets',
+      category:  'Pangkwarta',
       isExpense: false,
       icon: Icons.fastfood,
       ),
       Transaction(
       name: "Buy Cellpon nga Samsung TwelveCore 20gb Ram",
       description: "This is the description",
-      date: '8/10/2020',
+      date: '8/1/2020',
       amount: 900.00,
       category:  'Gadgets',
       isExpense: true,
       icon: Icons.network_cell
+      ),
+      Transaction(
+      name: "Kita sa pang hingi sa mga buang nga tambay.",
+      description: "This is the description",
+      date: '8/1/2020',
+      amount: 9060.00,
+      category:  'Kwarta',
+      isExpense: false,
+      icon: Icons.computer
+      ),
+      Transaction(
+      name: "Buy Cellpon nga Samsung TwelveCore 20gb Ram",
+      description: "This is the description",
+      date: '8/1/2020',
+      amount: 7800.00,
+      category:  'Gadgets',
+      isExpense: true,
+      icon: Icons.insert_emoticon
+      ),
+      Transaction(
+      name: "Buy Cellpon nga Samsung TwelveCore 20gb Ram",
+      description: "This is the description",
+      date: '8/1/2020',
+      amount: 7300.00,
+      category:  'Gadgets',
+      isExpense: false,
+      icon: Icons.pages
       )
     ]; 
 

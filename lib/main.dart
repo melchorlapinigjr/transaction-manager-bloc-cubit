@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transaction_manager/bloc/transaction/transaction_cubit.dart';
 import 'package:transaction_manager/model/transaction_model.dart';
+import 'package:transaction_manager/widgets/header_wedget.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,29 +30,33 @@ class _MyAppState extends State<MyApp> {
           child: Container(
             child: Column(
               children: [
-                HeaderWidget(),
-                Expanded(
-                  child: Column(
+                HeaderWidget(
+                  "Current Balance",
+                  "30,000",
+                  isHome: true, 
+                ),
+                TransactionSummaryWidget(),
+                SizedBox(height: 10.0),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 16,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      TransactionSummaryWidget(),
-                      SizedBox(height: 16.0),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 16,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("TODAY",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black45,
-                                ),
-                                textAlign: TextAlign.justify),
-                          ],
-                        ),
-                      ),
-                      BlocBuilder(
+                      Text("TODAY",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black45,
+                          ),
+                          textAlign: TextAlign.justify),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Expanded(
+                  child: Container( 
+                    child: BlocBuilder(
                         cubit: transactionCubit,
                         builder: (context, TransactionState state) {
                           if (state is TransactionListLoadedState) {
@@ -70,11 +74,10 @@ class _MyAppState extends State<MyApp> {
                           }
                           return Container();
                         },
-                      ),
-                      BottomButtonsWidget(),
-                    ],
+                      ),  
                   ),
-                ),
+                ), 
+                BottomButtonsWidget(),
               ],
             ),
           ),
@@ -91,66 +94,45 @@ class BottomButtonsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-            icon: Icon(Icons.category),
-            onPressed: () {
-              print("pressed");
-            },
-            color: Colors.black),
-        IconButton(
-            icon: Icon(Icons.add_circle),
-            onPressed: () {
-              print("pressed");
-            },
-            iconSize: 60,
-            color: Colors.blue),
-        IconButton(
-            icon: Icon(Icons.library_books),
-            onPressed: () {
-              print("pressed");
-            },
-            color: Colors.black),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black38,
+            blurRadius: 10,
+            spreadRadius: 5, 
+          )
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+              icon: Icon(Icons.category),
+              onPressed: () {
+                print("pressed");
+              },
+              color: Colors.black),
+          IconButton(
+              icon: Icon(Icons.add_circle),
+              onPressed: () {
+                print("pressed");
+              },
+              iconSize: 60,
+              color: Colors.blue),
+          IconButton(
+              icon: Icon(Icons.library_books),
+              onPressed: () {
+                print("pressed");
+              },
+              color: Colors.black),
+        ],
+      ),
     );
   }
-}
-
-class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              print("pressed!");
-            }),
-        Column(
-          children: [
-            Text("Current Balance",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                )),
-            Text("P 50,000.00",
-                style: TextStyle(
-                  color: Colors.blue,
-                )),
-          ],
-        ),
-        Icon(Icons.image),
-      ],
-    );
-  }
-}
-
+} 
+ 
 class TransactionSummaryWidget extends StatelessWidget {
   const TransactionSummaryWidget({
     Key key,
@@ -161,78 +143,85 @@ class TransactionSummaryWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
-          margin: EdgeInsets.only(
-            top: 10,
-          ),
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    "Income",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Column(
-                children: [
-                  Text(
-                    "P 100,000.00",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
+        SizedBox(width: 5,),
+        Expanded( 
+          child: Container(
+            margin: EdgeInsets.only(
+              top: 10,
+            ),
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Income",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "P 100,000.00",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(
-            top: 10,
-          ),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    "Expense",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Column(
-                children: [
-                  Text(
-                    "P50,000.00",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
+        SizedBox(width: 5,),
+        Expanded( 
+          child: Container(
+            margin: EdgeInsets.only(
+              top: 10,
+            ),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Expense",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "P50,000.00",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+        ), 
+        SizedBox(width: 5,),
       ],
     );
   }
@@ -250,7 +239,7 @@ class TransactionListWidget extends StatelessWidget {
         top: 5,
         bottom: 5,
       ),
-      margin: EdgeInsets.all(5.0),
+      margin: EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         color: Color(0xFFFEFEFE),
