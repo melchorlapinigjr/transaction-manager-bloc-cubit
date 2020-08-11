@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transaction_manager/bloc/transaction/transaction_cubit.dart';
 import 'package:transaction_manager/model/transaction_model.dart';
+import 'package:transaction_manager/pages/homepage_drawer.dart';
+import 'package:transaction_manager/pages/new_transaction.dart';
 import 'package:transaction_manager/widgets/header_wedget.dart';
 
 void main() {
@@ -31,28 +33,14 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               children: [
                 HeaderWidget(
-                  "Current Balance",
-                  "30,000",
-                  isHome: true, 
+                  "Current Balance",   
+                  isHome: true,
+                  currentBalance: "50,000", 
+                  bottonRightFunction:() {},
                 ),
                 TransactionSummaryWidget(),
                 SizedBox(height: 10.0),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 16,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("TODAY",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black45,
-                          ),
-                          textAlign: TextAlign.justify),
-                    ],
-                  ),
-                ),
+                ListLabelWidget(),
                 SizedBox(height: 8.0),
                 Expanded(
                   child: Container( 
@@ -82,6 +70,32 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ListLabelWidget extends StatelessWidget {
+  const ListLabelWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+        left: 16,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("TODAY",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black45,
+              ),
+              textAlign: TextAlign.justify),
+        ],
       ),
     );
   }
@@ -117,7 +131,11 @@ class BottomButtonsWidget extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.add_circle),
               onPressed: () {
-                print("pressed");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) =>
+                   NewTransaction())
+                );
               },
               iconSize: 60,
               color: Colors.blue),

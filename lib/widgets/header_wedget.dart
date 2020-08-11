@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget(this.title, this.currentBalance,{this.isHome, 
+  const HeaderWidget(this.title, {this.currentBalance, this.isHome, this.bottonRightFunction, 
     Key key,
   }) : super(key: key);
+  final Function bottonRightFunction;
   final String title;
   final bool isHome;
   final String currentBalance;
@@ -16,7 +17,7 @@ class HeaderWidget extends StatelessWidget {
         IconButton(
             icon: Icon(Icons.menu),
             onPressed: () {
-              print("pressed!");
+             bottonRightFunction();
             }),
         Column(
           children: [
